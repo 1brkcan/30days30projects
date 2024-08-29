@@ -1,0 +1,115 @@
+
+
+html{
+    font-size: 14px;
+
+}
+
+:root{
+    --primary: #007fff;
+    --secondary: #6f7e8c;
+    --hover: #f5f5f5;
+    --text: #212121;
+
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+.centering{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--primary);
+
+}
+
+.box{
+    background-color: #fff;
+    padding: 24px;
+    padding-top: 12px;
+    border-radius: 16px;
+
+}
+
+.input_wrapper{
+    position: relative;
+    padding: 15px 0 0;
+
+}
+
+.input_field{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--secondary);
+    font-size: 16px;
+    color: var(--text);
+    padding: 4px 0;
+    padding-right: 32px;
+    background-color: transparent;
+    transition: border-color .2s;
+
+}
+
+.input_field::placeholder{
+    color: transparent;
+
+}
+
+.input_field:placeholder-shown ~ .input_label{
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--secondary);
+    top: 20px;
+
+}
+
+label, .input_field:focus ~ .input_label{
+    position: absolute;
+    top: 0;
+    display: block;
+    font-size: 14px;
+    left: -1px;
+    color: var(--primary);
+    transition: all .3s;
+
+}
+
+.input_field:focus{
+    border-bottom: 2px solid var(--primary);
+
+}
+
+.input_field:focus ~ .input_label{
+    font-style: italic;
+
+}
+
+.input_icon{
+    position: absolute;
+    right: -14px;
+    bottom: -5px;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transform-origin: center;
+
+}
+
+.input_icon:hover{
+    background-color: var(--hover);
+    border-radius: 50%;
+
+}
+
+
+
+

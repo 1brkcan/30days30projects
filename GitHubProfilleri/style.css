@@ -1,0 +1,152 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body{
+    background-color: #19212D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    font-family:'Trebuchet MS', sans-serif;
+    color: #fff;
+
+}
+
+.container{
+    width: 42rem;
+    padding: 30px 20px;
+
+}
+
+.container h1{
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.searchBox{
+    background-color: #161922;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 5px;
+
+}
+
+.searchBox input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 80%;
+    color: #fff;
+    font-size: 15px;
+
+}
+
+.searchBox button{
+    background-color: #675afe;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: bold;
+    transition: all .3s ease-in-out;
+
+}
+
+.searchBox button:hover{
+    background-color: #3a28fa;
+    transform: scale(1.3);
+
+}
+
+.details{
+    margin-top: 20px;
+    background-color: #161922;
+    padding: 20px 25px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    display: none;
+
+}
+
+.profile{
+    display: flex;
+
+}
+
+.profile-image{
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+
+}
+
+.profile-image img{
+    width: 100%;
+    height: 100%;
+
+}
+
+.profile-details{
+    padding: 10px;
+    width: 25rem;
+}
+
+.username{
+    font-size: 13px;
+    color: #675afe;
+    cursor: pointer;
+
+}
+
+.bio{
+    font-size: 14px;
+    margin-top: 10px;
+
+}
+
+.stats{
+    background-color: #20232c;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px 0;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+
+}
+
+.media {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+}
+
+.media p{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 13px;
+    margin: 10px 0;
+
+}
+

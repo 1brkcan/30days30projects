@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "New Amsterdam", sans-serif;
+
+}
+
+body{
+    height: 100vh;
+    background: linear-gradient(to right, #FABC3F 50%, #E85C0D 50%) fixed;
+    
+}
+
+.container{
+   background: linear-gradient(to left, #FABC3F 50%, #E85C0D 50%) fixed;
+    width: 400px;
+    padding: 50px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    perspective: 200px;    
+
+}
+
+.stats{
+    text-align: right;
+    color: #E85C0D;
+    font-size: 25px;
+    font-weight: bolder;
+    line-height: 30px;
+    letter-spacing: 2px;
+}
+
+.coin{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    margin: 50px auto;
+    transform-style: preserve-3d;
+
+}
+
+.coin img{
+    height: 150px;
+    width: 150px;
+}
+
+.yazi{
+    transform: rotateX(180deg);
+}
+
+.tura, .yazi{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+
+}
+
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+button{
+    width: 120px;
+    padding: 10px 0;
+    border: 3px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+
+}
+
+#flip-button{
+    background-color: #FABC3F;
+    color: #E85C0D;
+
+}
+
+#flip-button:disabled{
+    background-color: grey;
+    color: rgb(244, 244, 244);
+    opacity: 0.6;
+
+}
+
+#reset-button{
+    background-color: #E85C0D;
+    color: #FABC3F;
+
+}
+
+@keyframes spin-yazi{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(1980deg);
+    }
+}
+
+@keyframes spin-tura{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(2160deg);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+{
+    "name": "Bio",
+    "version": "1.0.0",
+    "description": "Bu proje eğitim amaçlı yapıldı",
+    "manifest_version": 3,
+    "author": "Bakkodum",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "img/icon.png"
+    }
+}
+
+
+
+
+
+
+
+
+

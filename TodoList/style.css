@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+:root{
+    --bg-:rgb(58, 156, 6);
+    --todo-:rgb(21, 88, 223);
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(90deg, var(--bg-), var(--todo-));
+    font-family: "PT Serif", serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container{
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.8);
+    padding: 20px;
+    
+}
+
+h1{
+    text-align: center;
+    color: var(--todo-);
+   
+
+}
+
+.input-container{
+    display: flex;
+    margin-bottom: 20px;
+
+}
+
+input[type="text"]{
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    margin-right: 5px;
+
+}
+
+button{
+    padding: 10px;
+    background-color: var(--todo-);
+    color: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+}
+
+button:hover{
+    background-color: var(--bg-);
+    
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+
+}
+
+li{
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 3px solid #ddd;
+    animation: fadeİn .5s ease;
+    margin: 10px;
+
+}
+
+li:last-child{
+    border-bottom: none;
+
+}
+
+span{
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.completed span{
+    text-decoration: line-through;
+    color: #999;
+
+}
+
+.completed button{
+    color: #e74c3c;
+
+}
+
+@keyframes fadeİn{
+    from{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+    }
+
+    to{
+        transform: translateY(-10);
+        opacity: 0;
+    }
+}
+
+

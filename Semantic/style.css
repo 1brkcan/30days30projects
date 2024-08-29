@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+:root{
+    --text-: #000;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    
+
+}
+
+header{
+    background-color: #FF788F;
+    width: 100%;
+    height: 150px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    margin: 5px 0;
+    
+}
+nav{
+    background-color: #45E0A7;
+    width: 100%;
+    height: 75px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+
+}
+
+div{
+    display: flex;
+    height: 150px;
+    width: 100%;
+    background-color: #fff;
+    margin-top: 5px;
+
+}
+
+div aside{
+    background-color: #FACFD6;
+    width: 50%;
+    height: 400px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    margin-right: 5px;
+
+}
+
+div main{
+    background-color: #C9ECFF;
+    width: 50%;
+    height: 400px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+div main article{
+    background-color: #6FDBFF;
+    width: 50%;
+    height: 200px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+
+}
+
+div main article figure{
+    background-color: #FEF2B4;
+    width: 50%;
+    height: 50px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+
+}
+
+div main article p{
+    background-color: #EDFFA9;
+    width: 50%;
+    height: 50px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    margin-top: 5px;
+}
+
+div main section{
+    background-color: #00A8FF;
+    width: 50%;
+    height: 100px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+
+}
+
+footer{
+    background-color: #B87FFF;
+    width: 100%;
+    height: 75px;
+    text-align: center;
+    color: var(--text-);
+    font-size: 50px;
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 5px;
+}
+

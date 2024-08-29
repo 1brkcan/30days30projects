@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            border: 5px solid black;
+            margin-bottom: 20px;
+            transition: all .4s ease;
+
+        }
+        input{
+            overlay: none;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <input type="text" placeholder="Renk veya px değeri girin">
+
+
+    <script>
+        const box = document.querySelector("div");
+        const input = document.querySelector("input");
+
+        input.addEventListener("input", (e) => {
+            const val = e.target.value;
+            box.style.background = val;
+            box.style.borderRadius = val;
+        })
+
+    </script>
+</body>
+</html>

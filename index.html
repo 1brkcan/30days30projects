@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kelime Quiz</title>
+  <style>
+    :root{--bg:#e7eaef;--card:#ffffff;--accent:#4f46e5;--muted:#6b7280}
+    body{font-family:Inter,Segoe UI,Roboto,Arial;margin:0;background:var(--bg);color:#111}
+    .container{max-width:900px;margin:32px auto;padding:20px}
+    header{display:flex;align-items:center;gap:12px}
+    h1{margin:0;font-size:20px}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(17,24,39,0.06);margin-top:16px}
+    form{display:flex;gap:8px;flex-wrap:wrap}
+    input,select,button{padding:8px 10px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px}
+    input{flex:1;min-width:160px}
+    button.primary{background:var(--accent);color:white;border:0}
+    .list{margin-top:12px}
+    .word-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #edf0f6}
+    .word-left{display:flex;gap:12px;align-items:center}
+    .muted{color:var(--muted);font-size:13px}
+    .controls{display:flex;gap:8px}
+    .quiz-area{margin-top:18px}
+    .question{font-weight:600;margin-bottom:6px}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .option{padding:10px;border-radius:10px;border:1px solid #e6e9ef;cursor:pointer}
+    .option:hover{background:#f3f4f6}
+    .correct{border-color:green}
+    .wrong{border-color:red}
+    .small{font-size:13px}
+    .center{display:flex;justify-content:center;align-items:center}
+    footer{margin-top:16px;color:var(--muted);font-size:13px}
+    @media (max-width:520px){form{flex-direction:column} .container{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Kelime Quiz Oluşturucu</h1>
+      <div class="muted">Kelimelerini ekle, kaydet, kendine quiz yap.</div>
+    </header>
+
+    <div class="card">
+      <h2 style="margin-top:0">Kelime ekle</h2>
+      <form id="addForm" onsubmit="return false;">
+        <input id="wordInput" placeholder="Kelime (ör: apple)" required />
+        <input id="meaningInput" placeholder="Anlam (ör: elma)" required />
+        <button id="addBtn" class="primary">Ekle</button>
+        <button id="clearBtn" type="button">Tümünü Temizle</button>
+      </form>
+
+      <div class="list card" id="wordsList" style="margin-top:12px">
+        <strong>Kelimeler</strong>
+        <div id="rows"></div>
+      </div>
+
+      <div class="card quiz-area">
+        <h2 style="margin-top:0">Quiz ayarları</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <label class="small">Soru sayısı:
+            <select id="numQ">
+              <option>5</option>
+              <option>10</option>
+              <option>15</option>
+            </select>
+          </label>
+          <label class="small">Mod:
+            <select id="mode">
+              <option value="mc">Çoktan seçmeli</option>
+              <option value="type">Yazma (tam cevap)</option>
+            </select>
+          </label>
+          <button id="startBtn" class="primary">Quiz Başlat</button>
+        </div>
+
+        <div id="quizBox" style="margin-top:14px"></div>
+      </div>
+
+      <footer>
+        Not: Kelimeler tarayıcıda saklanır (localStorage).
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Basit kelime-quiz uygulaması
+    const STORAGE_KEY = 'myQuizWords_v1'
+    let words = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+
+    // Elements
+    const rows = document.getElementById('rows')
+    const wordInput = document.getElementById('wordInput')
+    const meaningInput = document.getElementById('meaningInput')
+    const addBtn = document.getElementById('addBtn')
+    const clearBtn = document.getElementById('clearBtn')
+    const startBtn = document.getElementById('startBtn')
+    const numQ = document.getElementById('numQ')
+    const mode = document.getElementById('mode')
+    const quizBox = document.getElementById('quizBox')
+
+    function save(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(words))
+    }
+
+    function renderList(){
+      rows.innerHTML = ''
+      if(words.length === 0){ rows.innerHTML = '<div class="muted">Henüz kelime yok. Yukarıdan ekleyin.</div>'; return }
+      words.forEach((w,i)=>{
+        const el = document.createElement('div')
+        el.className = 'word-row'
+        el.innerHTML = `
+          <div class="word-left">
+            <div><strong>${escapeHtml(w.word)}</strong></div>
+            <div class="muted">${escapeHtml(w.meaning)}</div>
+          </div>
+          <div class="controls">
+            <button data-i="${i}" class="editBtn">Düzenle</button>
+            <button data-i="${i}" class="delBtn">Sil</button>
+          </div>`
+        rows.appendChild(el)
+      })
+      // attach listeners
+      document.querySelectorAll('.delBtn').forEach(b=>b.onclick = e=>{
+        const i = +e.target.dataset.i
+        if(confirm('Bu kelimeyi silmek istiyor musunuz?')){ words.splice(i,1); save(); renderList(); }
+      })
+      document.querySelectorAll('.editBtn').forEach(b=>b.onclick = e=>{
+        const i = +e.target.dataset.i
+        const newWord = prompt('Kelimeyi düzenle:', words[i].word)
+        if(newWord === null) return
+        const newMeaning = prompt('Anlamı düzenle:', words[i].meaning)
+        if(newMeaning === null) return
+        words[i] = {word: newWord.trim(), meaning: newMeaning.trim()}
+        save(); renderList()
+      })
+    }
+
+    function addWord(){
+      const w = wordInput.value.trim()
+      const m = meaningInput.value.trim()
+      if(!w || !m) return alert('Hem kelime hem anlam girin.')
+      words.push({word:w,meaning:m})
+      wordInput.value = ''
+      meaningInput.value = ''
+      save(); renderList()
+    }
+
+    addBtn.onclick = addWord
+    wordInput.onkeypress = (e)=>{ if(e.key === 'Enter') addWord() }
+
+    clearBtn.onclick = ()=>{
+      if(!confirm('Tüm kelimeleri kaldırmak istediğine emin misin?')) return
+      words = []
+      save(); renderList(); quizBox.innerHTML = ''
+    }
+
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+
+    function startQuiz(){
+      if(words.length === 0){ alert('Önce en az 1 kelime ekleyin.'); return }
+      const total = Math.min(+numQ.value, words.length)
+      const modeVal = mode.value
+      const pool = shuffle(words.slice())
+      const quiz = pool.slice(0,total)
+      let idx = 0
+      let score = 0
+
+      quizBox.innerHTML = ''
+
+      function showNext(){
+        if(idx >= quiz.length){
+          quizBox.innerHTML = `<div class="center"><div class="card" style="padding:18px;"><h3>Quiz bitti</h3><p class="small">Doğru: ${score} / ${quiz.length}</p><button id="restart">Yeniden</button></div></div>`
+          document.getElementById('restart').onclick = ()=>{ quizBox.innerHTML = ''; }
+          return
+        }
+        const item = quiz[idx]
+        quizBox.innerHTML = ''
+        const qdiv = document.createElement('div')
+        qdiv.className = 'card'
+        const qtitle = document.createElement('div')
+        qtitle.className = 'question'
+        qtitle.textContent = `Soru ${idx+1} / ${quiz.length} — "${item.word}" kelimesinin anlamı nedir?`
+        qdiv.appendChild(qtitle)
+
+        if(modeVal === 'mc'){
+          const opts = makeOptions(item.meaning)
+          const optBox = document.createElement('div')
+          optBox.className = 'options'
+          opts.forEach(opt=>{
+            const o = document.createElement('div')
+            o.className = 'option'
+            o.textContent = opt
+            o.onclick = ()=>{
+              if(o._answered) return
+              o._answered = true
+              if(opt === item.meaning){ o.classList.add('correct'); score++ } else { o.classList.add('wrong'); /* highlight correct */
+                [...optBox.children].forEach(c=>{ if(c.textContent === item.meaning) c.classList.add('correct') })
+              }
+              setTimeout(()=>{ idx++; showNext() }, 700)
+            }
+            optBox.appendChild(o)
+          })
+          qdiv.appendChild(optBox)
+        } else {
+          const input = document.createElement('input')
+          input.placeholder = 'Cevabını yaz ve Enter a bas'
+          input.style.width = '100%'
+          input.onkeydown = (e)=>{
+            if(e.key === 'Enter'){
+              const ans = input.value.trim()
+              const ok = ans.toLowerCase() === item.meaning.toLowerCase()
+              if(ok) score++
+              const res = document.createElement('div')
+              res.className = 'small'
+              res.textContent = ok ? 'Doğru!' : `Yanlış — Doğru cevap: ${item.meaning}`
+              qdiv.appendChild(res)
+              input.disabled = true
+              setTimeout(()=>{ idx++; showNext() }, 900)
+            }
+          }
+          qdiv.appendChild(input)
+          input.focus()
+        }
+
+        quizBox.appendChild(qdiv)
+      }
+
+      function makeOptions(correct){
+        const others = words.map(w=>w.meaning).filter(m=>m !== correct)
+        shuffle(others)
+        const opts = [correct, ...others.slice(0,3)]
+        return shuffle(opts)
+      }
+
+      showNext()
+    }
+
+    startBtn.onclick = startQuiz
+
+    function escapeHtml(str){ return String(str).replace(/[&<>"]+/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[s])) }
+
+    // initial render
+    renderList()
+  </script>
+</body>
+</html>
